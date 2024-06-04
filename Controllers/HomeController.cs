@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ST10026525.CLDV.Poe.Models;
 using System.Diagnostics;
@@ -7,19 +8,41 @@ namespace ST10026525.CLDV.Poe.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public IActionResult Index()
+        public IActionResult Home()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult ContactUs()
         {
+            return View();
+        }
+
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+
+        public IActionResult Mywork()
+        {
+            // Retrieve all products from the database
+            List<productTable> products = productTable.GetAllProducts();
+
+            // Retrieve userID from session
+            int? userID = _httpContextAccessor.HttpContext.Session.GetInt32("UserID");
+
+            // Pass products and userID to the view
+            ViewData["Products"] = products;
+            ViewData["UserID"] = userID;
+
             return View();
         }
 
