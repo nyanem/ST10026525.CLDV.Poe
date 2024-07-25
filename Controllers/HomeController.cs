@@ -20,6 +20,14 @@ namespace ST10026525.CLDV.Poe.Controllers
         {
             return View();
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        public IActionResult SignUp()
+        {
+            return View();
+        }
 
         public IActionResult ContactUs()
         {

@@ -10,29 +10,28 @@ namespace ST10026525.CLDV.Poe.Models
         public static SqlConnection con = new SqlConnection(con_string);
 
         public string Name {  get; set; }
-        public string Password { get; set; }
+        public string Surname { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
 
-        public bool InsertUser(string username, string email, string password)
+        public bool InsertUser(UserTable a)
         {
             using (SqlConnection con = new SqlConnection(con_string))
             {
                 con.Open();
-                string query = "INSERT INTO Users (Username, Email, Password) VALUES (@Username, @Email, @Password)";
+                string query = "INSERT INTO Users (username, userSurname, userEmail, userPassword) VALUES (@Name, @Surname, @Email, @Password)";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    cmd.Parameters.AddWithValue("@Username", username);
-                    cmd.Parameters.AddWithValue("@Email", email);
-                    cmd.Parameters.AddWithValue("@Password", password);
+                    cmd.Parameters.AddWithValue("@Name", a.Name);
+                    cmd.Parameters.AddWithValue("@Surname", a.Surname);
+                    cmd.Parameters.AddWithValue("@Email", a.Email);
+                    cmd.Parameters.AddWithValue("@Password", a.Password);
                     int rowsAffected = cmd.ExecuteNonQuery();
                     return rowsAffected > 0;
                 }
             }
         }
 
-        internal object InsertUser(UserTable users)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

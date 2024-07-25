@@ -8,20 +8,11 @@ namespace ST10026525.CLDV.Poe.Controllers
         public UserTable usrtbl = new UserTable();
 
         [HttpPost]
-        public ActionResult About(UserTable Users)
+        public ActionResult SignUp(UserTable Users)
         {
             var result = usrtbl.InsertUser(Users);
             return RedirectToAction("Home", "Home");
         }
-        [HttpGet]
-        public ActionResult About()
-        {
-            return View(usrtbl);
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
     }
 }
